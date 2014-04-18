@@ -152,12 +152,16 @@ make.header.row = function(column.info) {
             sprintf(" style='%s%s'", widths, 
                 if(is.null(style$style)) "" else style$style)
         } else { "" }
-        fmt =  if(!is.null(ci$formatter)) {
+        fmt = if(!is.null(ci$formatter)) {
             sprintf(" data-%s='%s'", 
                 ci$formatter$type,
                 ci$formatter$name)
         } else { "" }
-        sprintf("<th data-dynatable-column='%s'%s%s>%s</th>", hn, style, fmt, ci$label)
+        cl = if(!is.null(ci$class)) {
+            sprintf(" class='%s'", paste(ci$class, collapse = " "))
+        } else { "" }
+        sprintf("<th data-dynatable-column='%s'%s%s%s>%s</th>", hn, 
+            cl, style, fmt, ci$label)
     })), "</tr>"), collapse = "\n")
 }
 
@@ -198,6 +202,7 @@ make.outer.header.row = function(outer.headers) {
 ##      - label - the column heading to display
 ##      - formatter - the formatter to apply - must be one of 
 ##          "count", "singleprop", "multiprop"
+##      - class - a vector of CSS classes to apply
 ##      CSS:
 ##      - width - the desired width of the column, including units
 ##      - maxwidth - the maximum width, including units
