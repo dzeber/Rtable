@@ -183,7 +183,8 @@ make.outer.header.row = function(outer.headers) {
 ##
 ##  heading - the heading to display above the table
 ##  column.info - a list of information tagged by column names 
-##      for columns to display. If column is missing, it will not be displayed. 
+##      for columns to display. Ordering in the list determines ordering 
+##      in the table. If column is missing, it will not be displayed. 
 ##      If column.info is NULL, entire data frame will be displayed. 
 ##      Each element should be a list with any of the follow elements: 
 ##      - label - the column heading to display
@@ -324,6 +325,9 @@ function(dataset,
     if(open.in.browser) {
         browseURL(paste0("file://", html.path))
     }
+    
+    ## Return path to HTML file. 
+    html.path
 }
 
 })
