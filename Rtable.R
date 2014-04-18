@@ -139,17 +139,25 @@ make.html = function(base.path,
 make.header.row = function(column.info) {
     paste0(c("<tr>", unlist(lapply(names(column.info), function(hn) {
         ci = column.info[[hn]]
-        sprintf("<th data-dynatable-column='%s'%s%s>%s</th>", 
-            hn, 
-            if(!is.null(ci$width)) {
-                sprintf(" style='width: %s'", ci$width)
-            } else { "" },
-            if(!is.null(ci$formatter)) {
-                sprintf(" data-%s='%s'", 
-                    ci$formatter$type,
-                    ci$formatter$name)
-            } else { "" },
-            ci$label)
+        style = ci[c("width", "max-width", "min-width", "style")]
+        nullstyle = sapply(style, is.null)
+        style = if(!all(nullstyle)) {
+            style = style[!nullstyle]
+            widths = names(style)[names(style) != "style"]
+            widths = if(length(widths) > 0) { 
+                paste(unlist(lapply(widths, function(sn) { 
+                    sprintf("%s: %s;", sn, style[[sn]]) 
+                })), collapse = "")
+            } else { "" }
+            sprintf(" style='%s%s'", widths, 
+                if(is.null(style$style)) "" else style$style)
+        } else { "" }
+        fmt =  if(!is.null(ci$formatter)) {
+            sprintf(" data-%s='%s'", 
+                ci$formatter$type,
+                ci$formatter$name)
+        } else { "" }
+        sprintf("<th data-dynatable-column='%s'%s%s>%s</th>", hn, style, fmt, ci$label)
     })), "</tr>"), collapse = "\n")
 }
 
@@ -188,9 +196,13 @@ make.outer.header.row = function(outer.headers) {
 ##      If column.info is NULL, entire data frame will be displayed. 
 ##      Each element should be a list with any of the follow elements: 
 ##      - label - the column heading to display
-##      - width - the desired width of the column, including units
 ##      - formatter - the formatter to apply - must be one of 
-##          "count", "singleprop", "multiprop".
+##          "count", "singleprop", "multiprop"
+##      CSS:
+##      - width - the desired width of the column, including units
+##      - maxwidth - the maximum width, including units
+##      - minwidth - the maximum width, including units
+##      - style - generic CSS
 ##  outer.headings - specification for additional header rows. 
 ##      A list with an element for each additional row. Each element is a list 
 ##      of lists containing elements 'ncol' and optionally 'label', 
