@@ -1,0 +1,222 @@
+
+body {
+	/* font-family:Lato,"Open Sans","Helvetica Neue",Helvetica,sans-serif,"Myriad Pro",Arial; */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding:0;
+	margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #fffffe;
+}
+
+* { 
+  box-sizing: border-box;
+}
+
+#content {
+  width: 90%;
+  margin-left: 5%;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+h2 {
+	margin-bottom: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+  font-size: 30px;
+}
+
+a:hover { 
+	cursor: pointer;
+}
+
+
+/* Search and pagination. */
+
+.dynatable-search, .dynatable-per-page {
+  margin-bottom: 20px;
+}
+
+.dynatable-pagination-links {
+  margin: 0;
+}
+
+.dynatable-per-page {
+  float: left;
+}
+
+select, input[type="search"] {
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+select:focus, input[type="search"]:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+input[type="search"] {
+  padding: 4px 6px;
+}
+
+select {
+  padding: 4px 14px 4px 6px;
+}
+
+.dynatable-per-page select, .dynatable-search input, .dynatable-page-prev { 
+  margin-left: 5px;
+}
+
+
+/* Table styling */
+
+table {
+  border: 1px solid #ddd;
+  border-spacing: 0;
+  border-collapse: separate;
+	border-radius: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Table header */
+
+thead > tr:first-child > th:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+thead > tr:first-child > th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+thead > tr:first-child > th {
+  padding-top: 15px;
+}
+
+thead > tr:last-child > th {
+  padding-bottom: 10px;
+}
+
+thead > tr:only-child > th {
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+th, td {
+  padding: 5px;
+}
+
+tr > th:first-child, tr > td:first-child {
+  padding-left: 15px;
+}
+
+tr > th:last-child, tr > td:last-child {
+  padding-right: 15px;
+}
+
+
+th {
+  text-align: left;
+  vertical-align: bottom;
+  color: #fff;
+}
+
+/* Overrides for multiple header rows. */
+
+th[colspan] {
+  text-align: center;
+}
+
+th[colspan]:not(:first-child) {
+  border-left: 1px solid #999;
+}
+
+th[colspan]:not(:last-child) {
+  border-right: 1px solid #999;
+}
+
+td {
+  vertical-align: top;
+}
+ 
+/* Row shading */
+
+tbody > tr:nth-child(odd) {
+	background-color: #FFE4C4;
+}
+
+tbody > tr:hover {
+  background-color: #EEDFCC;
+}
+
+/* Clickable column headers */
+
+th a {
+  text-decoration: none;
+}
+
+th a:visited, a:focus { 
+  color: #fff
+}
+
+
+/* Bar plots */
+
+.bar_cell {
+  padding: 0 4px;
+  vertical-align: middle;
+  line-height: 1.7;
+}
+
+.bar_container {
+  background-color: white;
+  border: 1px solid #f2f2f2;
+  width: 100%;
+}
+ 
+.bar {
+  float: left;
+}
+
+/* Force bar to fill cell.  */
+.bar:after {
+  content: '&nbsp;';
+  visibility: hidden;
+}
+
+/* .single_bar{
+  background-color: #006666;
+}
+ */
+ 
+/* 8 different bar colors for multiple bar miniplot. */
+.barcol0 {
+	background-color : rgb(102, 194, 165)
+}
+.barcol1 {
+	background-color : rgb(252, 141, 98)
+}
+.barcol2 {
+	background-color : rgb(141, 160, 203)
+}
+.barcol3 {
+	background-color : rgb(231, 138, 195)
+}
+.barcol4 {
+	background-color : rgb(166, 216, 84)
+}
+.barcol5 {
+	background-color : rgb(255, 217, 47)
+}
+.barcol6 {
+	background-color : rgb(229, 196, 148)
+}
+.barcol7 {
+	background-color : rgb(179, 179, 179)
+}
+
