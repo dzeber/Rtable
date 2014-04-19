@@ -165,7 +165,7 @@ th a:visited, a:focus {
 }
 
 /* Centering for body cells. */
-td .centered {
+td.centered {
   text-align: center;
 }
 
