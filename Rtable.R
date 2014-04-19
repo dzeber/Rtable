@@ -287,7 +287,8 @@ function(dataset,
     }
     
     if(row.index) {
-        column.info = c(row.index = list(label = ""), column.info)
+        column.info = c(row.index = list(NULL), column.info)
+        column.info$row.index$label = ""
         dataset$row.index = 1:nrow(dataset)
     }
     
