@@ -192,6 +192,7 @@ make.outer.header.row = function(outer.headers) {
 ##  dataset - the data frame
 ##  destination.path - the path to the destination directory in which 
 ##                      to create the HTML files
+##  row.index - whether or not to include row indices as a column on the left. 
 ##
 ##  heading - the heading to display above the table
 ##  column.info - a list of information tagged by column names 
@@ -230,6 +231,7 @@ make.outer.header.row = function(outer.headers) {
 ##
 function(dataset,
         destination.path,
+        row.index = FALSE,
         heading = NULL,
         column.info = NULL, 
         outer.headings = NULL,
@@ -284,27 +286,35 @@ function(dataset,
         }
     }
     
+    if(row.index) {
+        column.info = c(row.index = list(label = ""), column.info)
+        dataset$row.index = 1:nrow(dataset)
+    }
+    
     ## Check outer headings. 
     if(!is.null(outer.headings)) {
-        if(length(outer.headings) == 0) {
-            outer.headings = NULL
-        } else {
-            if(any(c("ncol", "label") %in% names(outer.headings[[1]]))) {
-                ## Assume we want a single row. 
-                ## Wrap in a list to conform to the desired structure. 
-                outer.headings = list(outer.headings)
-            }
-            
-            ## Check that column lengths add up. 
-            bad.ncols = unlist(lapply(outer.headings, function(hr) {
-                sum(unlist(lapply(hr, function(hh) {
-                    if(is.null(hh$ncol)) 1 else hh$ncol
-                })))})) != length(column.info)
-            if(any(bad.ncols)) {
-                stop(sprintf("The column numbers in header row%s %s don't add up to the number of data columns", 
-                    if(sum(bad.ncols) > 1) "s" else "",
-                    paste(which(bad.ncols), collapse = ",")))
-            }
+       if(any(c("ncol", "label") %in% names(outer.headings[[1]]))) {
+            ## Assume we want a single row. 
+            ## Wrap in a list to conform to the desired structure. 
+            outer.headings = list(outer.headings)
+        }
+        
+        ## Check that column lengths add up. 
+        bad.ncols = unlist(lapply(outer.headings, function(hr) {
+            sum(unlist(lapply(hr, function(hh) {
+                if(is.null(hh$ncol)) 1 else hh$ncol
+            })))})) != length(column.info)
+        if(any(bad.ncols)) {
+            stop(sprintf("The column numbers in header row%s %s don't add up to the number of data columns", 
+                if(sum(bad.ncols) > 1) "s" else "",
+                paste(which(bad.ncols), collapse = ",")))
+        }
+        
+        ## Add column for row index if necessary. 
+        if(row.index) {
+            outer.headings = lapply(outer.headings, function(r) {
+                c(list(ncol = 1), r)
+            })
         }
     }
     
