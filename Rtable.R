@@ -165,8 +165,9 @@ make.header.row = function(column.info) {
     })), "</tr>"), collapse = "\n")
 }
 
-## Generates extra HTML table header row to prepend above main row. 
-## Input is list of lists containing elements 'ncols' and optionally 'label'.
+## Generates extra HTML table header rows to prepend above main row. 
+## Input is list of lists (one per row) of lists (one per cell) 
+## containing elements 'ncols' and optionally 'label'.
 ## For each sublist, a header cell will be created that extends for ncols columns
 ## with the specified header (empty if header is NULL).
 ## If ncols is NUll, it will be assumed to be 1.
@@ -344,8 +345,8 @@ function(dataset,
     ## First create header block. 
     header.block = make.header.row(column.info)
     if(!is.null(outer.headings)) {
-        header.block = paste(c(
-            unlist(lapply(outer.headings, make.outer.header.row)),
+        header.block = paste(c(make.outer.header.row(outer.headings),
+            # unlist(lapply(outer.headings, make.outer.header.row)),
             header.block), collapse = "\n")
     }
     
