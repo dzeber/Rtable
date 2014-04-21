@@ -310,7 +310,7 @@ function(dataset,
         ## Add column for row index if necessary. 
         if(row.index) {
             outer.headings = lapply(outer.headings, function(r) {
-                c(list(ncol = 1), r)
+                c(list(list(ncol = 1)), r)
             })
         }
     }
