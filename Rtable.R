@@ -174,13 +174,15 @@ make.header.row = function(column.info) {
 ## Returns a string of HTML representing the header row. 
 ##
 make.outer.header.row = function(outer.headers) {
-    paste0(c("<tr>", unlist(lapply(outer.headers, function(hh) {
-        sprintf("<th%s>%s</th>", 
-            if(!is.null(hh$ncol) && hh$ncol > 1) {
-                sprintf(" colspan='%s'", hh$ncol)
-            } else { "" },
-            if(!is.null(hh$label)) { hh$label } else { "" })
-    })), "</tr>"), collapse = "\n")
+    paste0(lapply(outer.headers, function(hr) {
+        paste(c("<tr>", unlist(lapply(hr, function(hh) {
+            sprintf("<th%s>%s</th>", 
+                if(!is.null(hh$ncol) && hh$ncol > 1) {
+                    sprintf(" colspan='%s'", hh$ncol)
+                } else { "" },
+                if(!is.null(hh$label)) { hh$label } else { "" })
+        })), "</tr>"), collapse = "\n")
+    }), collapse = "\n")
 }
 
 
