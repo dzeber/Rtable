@@ -286,12 +286,6 @@ function(dataset,
         }
     }
     
-    if(row.index) {
-        column.info = c(row.index = list(NULL), column.info)
-        column.info$row.index$label = ""
-        dataset$row.index = 1:nrow(dataset)
-    }
-    
     ## Check outer headings. 
     if(!is.null(outer.headings)) {
        if(any(c("ncol", "label") %in% names(outer.headings[[1]]))) {
@@ -317,6 +311,13 @@ function(dataset,
                 c(list(ncol = 1), r)
             })
         }
+    }
+    
+    if(row.index) {
+        column.info = c(row.index = list(NULL), column.info)
+        column.info$row.index$label = ""
+        column.info$row.index$class = "rowindex"
+        dataset$row.index = 1:nrow(dataset)
     }
     
     for(aa in c("base.dirname", "data.dirname", 
