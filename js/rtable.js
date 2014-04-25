@@ -196,9 +196,10 @@
                 // Generate a writer function for this column using the 
                 // specified formatter. 
                 writers[colId] = (function() {
+                  var col = colId;
                   var formatter = cellContentFormatters[fmt];
                   return function(record) {
-                      return formatter(record[colId]);
+                      return formatter(record[col]);
                   };
                 })();
               }
